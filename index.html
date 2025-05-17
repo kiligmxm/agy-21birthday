@@ -32,7 +32,7 @@
             100% { transform: scale(1); }
         }
         
-        /* ### BOLO PERFEITAMENTE ALINHADO ### */
+        /* Bolo de limão */
         .cake-container {
             position: relative;
             width: 320px;
@@ -93,7 +93,7 @@
             z-index: 3;
         }
         
-        /* ### VELAS RETAS E ALINHADAS ### */
+        /* Velas */
         .candle {
             position: absolute;
             width: 10px;
@@ -124,7 +124,7 @@
             75% { transform: scale(1.05) rotate(-1deg); }
         }
         
-        /* ### BALÕES QUE SOBEM SUAVEMENTE ### */
+        /* Balões */
         .balloon {
             position: fixed;
             width: 50px;
@@ -182,7 +182,7 @@
             }
         }
         
-        /* ### MENSAGENS SEQUENCIAIS ### */
+        /* Mensagens */
         .message-container {
             position: relative;
             height: 120px;
@@ -214,8 +214,30 @@
             transform: translateX(-50%) translateY(-5px);
         }
         
+        /* Botão */
+        .btn {
+            background: linear-gradient(to bottom, #ff69b4, #ff1493);
+            color: white;
+            border: none;
+            padding: 16px 35px;
+            font-size: 1.3em;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 30px;
+            box-shadow: 0 8px 20px rgba(255,20,147,0.4);
+            transition: all 0.3s;
+            z-index: 10;
+            position: relative;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
         
-        /* ### EFEITO DE BRILHOS ### */
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(255,20,147,0.5);
+        }
+        
+        /* Efeito de brilhos */
         .glitter {
             position: absolute;
             width: 6px;
@@ -232,6 +254,32 @@
             10% { opacity: 0.8; }
             90% { opacity: 0.8; }
             100% { transform: translateY(-100px) rotate(180deg); opacity: 0; }
+        }
+
+        /* === NOVOS CONFETES (ATUALIZADOS) === */
+        .confetti {
+            position: fixed;
+            width: 12px;
+            height: 12px;
+            background: #ff0000;
+            opacity: 0;
+            z-index: 9999;
+            animation: confetti-fall 4s linear forwards;
+            pointer-events: none;
+            border-radius: 50%;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg) translateX(0);
+                opacity: 1;
+                top: -10px;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg) translateX(50px);
+                opacity: 0;
+                top: 100%;
+            }
         }
     </style>
 </head>
@@ -263,7 +311,7 @@
             "Feliz aniversário!!! :)))"
         ];
         
-        // ### POSIÇÕES DAS VELAS (AGORA PERFEITAS) ###
+        // Posições das velas
         const candlePositions = [
             {x: -50},  // 1ª vela (esquerda)
             {x: -25},  // 2ª vela
@@ -278,7 +326,7 @@
             '#9370db', '#ff6347', '#ff69b4', '#40e0d0'
         ];
         
-        // ### FUNÇÃO DAS VELAS (AGORA ALINHADAS) ###
+        // Cria as velas e chamas
         function createCandles() {
             const cakeContainer = document.getElementById('cake');
             
@@ -286,15 +334,13 @@
                 // Cria vela
                 const candle = document.createElement('div');
                 candle.className = 'candle';
-                candle.style.left = `calc(50% + ${pos.x}px)`; // Centraliza perfeitamente
-                candle.style.bottom = '135px';
+                candle.style.left = `calc(50% + ${pos.x}px)`;
                 cakeContainer.appendChild(candle);
                 
                 // Cria chama
                 const flame = document.createElement('div');
                 flame.className = 'flame';
-                flame.style.left = `calc(50% + ${pos.x}px)`; // Centraliza perfeitamente
-                flame.style.bottom = '180px';
+                flame.style.left = `calc(50% + ${pos.x}px)`;
                 cakeContainer.appendChild(flame);
             });
         }
@@ -356,33 +402,40 @@
             displayNextMessage();
         }
         
-        // Cria efeito de confetes
+        // === NOVA FUNÇÃO DE CONFETES (ATUALIZADA) ===
         function createConfetti() {
-            const colors = ['#f00', '#0f0', '#00f', '#ff0', '#f0f', '#0ff'];
+            // Cores vibrantes
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', 
+                          '#ff00ff', '#00ffff', '#ff9900', '#9900ff'];
             
-            for (let i = 0; i < 100; i++) {
+            // Remove confetes antigos se existirem
+            document.querySelectorAll('.confetti').forEach(c => c.remove());
+            
+            // Cria 120 confetes
+            for (let i = 0; i < 120; i++) {
                 const confetti = document.createElement('div');
                 confetti.className = 'confetti';
+                
+                // Estilo dinâmico
                 confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
                 confetti.style.left = Math.random() * 100 + 'vw';
-                confetti.style.top = '-10px';
-                confetti.style.animationDelay = Math.random() * 5 + 's';
-                confetti.style.width = (Math.random() * 10 + 5) + 'px';
-                confetti.style.height = (Math.random() * 10 + 5) + 'px';
-                document.body.appendChild(confetti);
+                confetti.style.width = (Math.random() * 10 + 8) + 'px';
+                confetti.style.height = confetti.style.width;
+                confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                confetti.style.animationDelay = (Math.random() * 0.5) + 's';
+                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
                 
-                setTimeout(() => {
-                    confetti.remove();
-                }, 5000);
+                document.body.appendChild(confetti);
             }
             
+            // Som de comemoração
             const audio = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-happy-birthday-balloons-burst-3080.mp3');
-            audio.play();
+            audio.play().catch(e => console.log("Autoplay bloqueado: " + e));
         }
         
         // Inicializa tudo
         window.onload = function() {
-            createCandles(); // Bolo e velas PERFEITAMENTE ALINHADOS
+            createCandles();
             createBalloons();
             createGlitter();
             showMessages();
