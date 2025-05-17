@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz Aniversário!</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            text-align: center;
+            background: linear-gradient(to bottom, #fffaf0, #ffe4e1);
+            overflow-x: hidden;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        h1 {
+            color: #d2691e;
+            font-size: 3.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            animation: pulse 2s infinite;
+            margin: 30px 0;
+            background: linear-gradient(to right, #ff69b4, #ffa500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        /* ### BOLO PERFEITAMENTE ALINHADO ### */
+        .cake-container {
+            position: relative;
+            width: 320px;
+            height: 280px;
+            margin: 30px auto;
+            z-index: 2;
+        }
+        
+        .cake {
+            position: absolute;
+            width: 220px;
+            height: 110px;
+            background: #fffacd;
+            border-radius: 10px 10px 0 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 8px 0 #d2b48c;
+            z-index: 1;
+        }
+        
+        .frosting {
+            position: absolute;
+            width: 240px;
+            height: 25px;
+            background: #fff;
+            border-radius: 12px;
+            bottom: 110px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 2;
+        }
+        
+        .cake-bottom {
+            position: absolute;
+            width: 200px;
+            height: 45px;
+            background: #d2b48c;
+            border-radius: 0 0 15px 15px;
+            bottom: -45px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+        
+        .lemon-decoration {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: #fffacd;
+            border-radius: 50%;
+            border: 2px solid #d2b48c;
+            bottom: 120px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+        }
+        
+        /* ### VELAS RETAS E ALINHADAS ### */
+        .candle {
+            position: absolute;
+            width: 10px;
+            height: 45px;
+            background: linear-gradient(to bottom, #fff, #ffd700, #ffd700);
+            bottom: 135px;
+            border-radius: 5px;
+            z-index: 4;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }
+        
+        .flame {
+            position: absolute;
+            width: 14px;
+            height: 24px;
+            background: #ff9900;
+            border-radius: 50% 50% 20% 20%;
+            bottom: 180px;
+            animation: flicker 0.8s infinite alternate;
+            box-shadow: 0 0 15px #ff9900, 0 0 30px #ff6600;
+            z-index: 5;
+        }
+        
+        @keyframes flicker {
+            0%, 100% { transform: scale(1) rotate(-2deg); opacity: 1; }
+            25% { transform: scale(1.1) rotate(2deg); }
+            50% { transform: scale(0.95) rotate(0deg); opacity: 0.9; }
+            75% { transform: scale(1.05) rotate(-1deg); }
+        }
+        
+        /* ### BALÕES QUE SOBEM SUAVEMENTE ### */
+        .balloon {
+            position: fixed;
+            width: 50px;
+            height: 65px;
+            border-radius: 50%;
+            bottom: -100px;
+            animation: floatUp 10s linear infinite;
+            opacity: 0;
+            transform-origin: bottom center;
+            z-index: 1;
+            filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.2));
+        }
+        
+        .balloon:before {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 80px;
+            background: rgba(0,0,0,0.15);
+            bottom: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .balloon:after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 12px;
+            background: inherit;
+            border-radius: 0 0 5px 5px;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        @keyframes floatUp {
+            0% { 
+                transform: translateY(0) rotate(0deg) scale(0.6);
+                opacity: 0; 
+            }
+            10% { 
+                opacity: 0.9; 
+                transform: scale(1) rotate(2deg);
+            }
+            50% { 
+                transform: rotate(-1deg);
+            }
+            90% { 
+                opacity: 0.9; 
+            }
+            100% { 
+                transform: translateY(-120vh) rotate(5deg);
+                opacity: 0; 
+            }
+        }
+        
+        /* ### MENSAGENS SEQUENCIAIS ### */
+        .message-container {
+            position: relative;
+            height: 120px;
+            margin: 40px auto;
+            z-index: 10;
+        }
+        
+        .message {
+            position: absolute;
+            width: 90%;
+            max-width: 550px;
+            background: rgba(255,255,255,0.9);
+            padding: 20px;
+            border-radius: 20px;
+            margin: 0 auto;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            font-size: 1.3em;
+            line-height: 1.6;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: all 0.8s ease-in-out;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .message.active {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-5px);
+        }
+        
+        /* ### BOTÃO DE CONFETES ### */
+        .btn {
+            background: linear-gradient(to bottom, #ff69b4, #ff1493);
+            color: white;
+            border: none;
+            padding: 16px 35px;
+            font-size: 1.3em;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 30px;
+            box-shadow: 0 8px 20px rgba(255,20,147,0.4);
+            transition: all 0.3s;
+            z-index: 10;
+            position: relative;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+        
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(255,20,147,0.5);
+        }
+        
+        /* ### EFEITO DE BRILHOS ### */
+        .glitter {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: gold;
+            animation: glitter 3s linear infinite;
+            opacity: 0;
+            z-index: 0;
+        }
+        
+        @keyframes glitter {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(-100px) rotate(180deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <h1>Feliz Aniversário!</h1>
+    
+    <div class="cake-container" id="cake">
+        <div class="cake"></div>
+        <div class="frosting"></div>
+        <div class="cake-bottom"></div>
+        <div class="lemon-decoration"></div>
+    </div>
+    
+    <div class="message-container">
+        <div class="message" id="message"></div>
+    </div>
+    
+    <button class="btn" onclick="createConfetti()">Soltar Confetes!</button>
+    
+    <script>
+        // Mensagens que serão exibidas
+        const messages = [
+            "É um privilégio participar de mais um de seus dias",
+            "Espero que você possa realizar tudo o que sempre sonhou",
+            "Sempre estarei aqui para te apoiar no que for",
+            "Você é especial",
+            "Eu te adoro",
+            "Eu te amo",
+            "Feliz aniversário!!! :)))"
+        ];
+        
+        // ### POSIÇÕES DAS VELAS (AGORA PERFEITAS) ###
+        const candlePositions = [
+            {x: -50},  // 1ª vela (esquerda)
+            {x: -25},  // 2ª vela
+            {x: 0},    // 3ª vela (centro)
+            {x: 25},   // 4ª vela
+            {x: 50}    // 5ª vela (direita)
+        ];
+        
+        // Cores dos balões
+        const balloonColors = [
+            '#ff1493', '#00bfff', '#7cfc00', '#ffd700', 
+            '#9370db', '#ff6347', '#ff69b4', '#40e0d0'
+        ];
+        
+        // ### FUNÇÃO DAS VELAS (AGORA ALINHADAS) ###
+        function createCandles() {
+            const cakeContainer = document.getElementById('cake');
+            
+            candlePositions.forEach(pos => {
+                // Cria vela
+                const candle = document.createElement('div');
+                candle.className = 'candle';
+                candle.style.left = `calc(50% + ${pos.x}px)`; // Centraliza perfeitamente
+                candle.style.bottom = '135px';
+                cakeContainer.appendChild(candle);
+                
+                // Cria chama
+                const flame = document.createElement('div');
+                flame.className = 'flame';
+                flame.style.left = `calc(50% + ${pos.x}px)`; // Centraliza perfeitamente
+                flame.style.bottom = '180px';
+                cakeContainer.appendChild(flame);
+            });
+        }
+        
+        // Cria balões que sobem de baixo da tela
+        function createBalloons() {
+            setInterval(() => {
+                const balloon = document.createElement('div');
+                balloon.className = 'balloon';
+                balloon.style.background = balloonColors[Math.floor(Math.random() * balloonColors.length)];
+                balloon.style.left = Math.random() * 100 + 'vw';
+                balloon.style.animationDuration = (Math.random() * 6 + 8) + 's';
+                balloon.style.animationDelay = Math.random() * 3 + 's';
+                document.body.appendChild(balloon);
+                
+                setTimeout(() => {
+                    balloon.remove();
+                }, 12000);
+            }, 1200);
+        }
+        
+        // Cria efeito de glitter
+        function createGlitter() {
+            setInterval(() => {
+                const glitter = document.createElement('div');
+                glitter.className = 'glitter';
+                glitter.style.left = Math.random() * 100 + 'vw';
+                glitter.style.top = Math.random() * 100 + 'vh';
+                glitter.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                glitter.style.width = (Math.random() * 4 + 3) + 'px';
+                glitter.style.height = (Math.random() * 4 + 3) + 'px';
+                document.body.appendChild(glitter);
+                
+                setTimeout(() => {
+                    glitter.remove();
+                }, 3000);
+            }, 300);
+        }
+        
+        // Exibe as mensagens uma por vez
+        function showMessages() {
+            let index = 0;
+            const messageElement = document.getElementById('message');
+            
+            function displayNextMessage() {
+                messageElement.textContent = messages[index];
+                messageElement.classList.add('active');
+                
+                setTimeout(() => {
+                    messageElement.classList.remove('active');
+                    
+                    setTimeout(() => {
+                        index = (index + 1) % messages.length;
+                        displayNextMessage();
+                    }, 800);
+                }, 3000);
+            }
+            
+            displayNextMessage();
+        }
+        
+        // Cria efeito de confetes
+        function createConfetti() {
+            const colors = ['#f00', '#0f0', '#00f', '#ff0', '#f0f', '#0ff'];
+            
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = '-10px';
+                confetti.style.animationDelay = Math.random() * 5 + 's';
+                confetti.style.width = (Math.random() * 10 + 5) + 'px';
+                confetti.style.height = (Math.random() * 10 + 5) + 'px';
+                document.body.appendChild(confetti);
+                
+                setTimeout(() => {
+                    confetti.remove();
+                }, 5000);
+            }
+            
+            const audio = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-happy-birthday-balloons-burst-3080.mp3');
+            audio.play();
+        }
+        
+        // Inicializa tudo
+        window.onload = function() {
+            createCandles(); // Bolo e velas PERFEITAMENTE ALINHADOS
+            createBalloons();
+            createGlitter();
+            showMessages();
+        };
+    </script>
+</body>
+</html>
